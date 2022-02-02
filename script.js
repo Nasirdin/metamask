@@ -28,7 +28,11 @@ if(getAcc !== null) {
             return false
         }
     }
-    loginMetamaskBtn()
+    loginMetamaskBtn
+
+    window.addEventListener('DOMContentLoaded', () => {
+        loginMetamaskBtn()
+    })
 }
 
 if(getAcc === null){
@@ -120,6 +124,5 @@ function signOutOfFortmatic() {
 } 
 
 window.addEventListener('DOMContentLoaded', () => {
-    loginMetamaskBtn()
     loginFormaticBtn()
 })
