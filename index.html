@@ -119,8 +119,23 @@
     <script>
         let fm = new Fortmatic('pk_test_F7F84FB9AF538E92');
         web3 = new Web3(fm.getProvider());
-        
-        web3.currentProvider.enable();
+       
+        if (window.ethereum) {
+        // Use MetaMask provider
+            window.web3 = new Web3(window.ethereum);
+        } else {
+        // Use Fortmatic provider
+            window.web3 = new Web3(fm.getProvider());
+        }
+
+        // Legacy dApp browsers which web3 is still being injected
+        if (typeof web3 !== 'undefined') {
+        // Use injected provider
+            window.web3 = new Web3(web3.currentProvider);
+        } else {
+        // Use Fortmatic provider
+            window.web3 = new Web3(fm.getProvider());
+        }
     </script>
 </body>
 </html>
