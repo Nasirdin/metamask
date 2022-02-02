@@ -10,137 +10,15 @@
 <body>
     <div class="wrapper">
         <div class="block">
-            <button id="loginBtn" onclick="" class="loginBtn">Login with MetaMask</button>
-            <button id="fortmaticBtn" onclick="" class="loginBtn">Login with Fortmatic</button>
+            <button id="loginBtn" onclick={loginMetamaskBtn()} class="loginBtn">Login with MetaMask</button>
+            <button id="fortmaticBtn" onclick={loginFormaticBtn()} class="loginBtn">Login with Fortmatic</button>
             <p id="userWallet" class="userWallet"></p>
-            <p id="userBalance" class="userBalance"></p>
+            <!-- <p id="userBalance" class="userBalance"></p> -->
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fortmatic@latest/dist/fortmatic.js"></script>
-    <!-- Connect MetaMask -->
-    <script>
-        window.userWalletAddress = null;
-
-        const loginBtn = document.getElementById('loginBtn');
-        const fortmaticBtn = document.getElementById('fortmaticBtn');
-        const userWallet = document.getElementById('userWallet')
-        const userBalance = document.getElementById('userBalance')
-        const getAcc = localStorage.getItem('account')
-
-        if(getAcc !== null) {
-            window.userWalletAddress = getAcc;
-            userWallet.innerText = window.userWalletAddress
-            loginBtn.innerText = 'Sign out of MetaMask';
-            fortmaticBtn.style.display = 'none';
-            loginBtn.removeEventListener('click', loginWithMetaMask)
-            setTimeout(() => {
-                loginBtn.addEventListener('click', signOutOfMetaMask)
-            }, 200)
-            async function getBalance() {
-                const balance = await window.ethereum.request({
-                    method: 'eth_getBalance',
-                    params: [
-                    `${getAcc}`,
-                    'pending'
-                    ],
-                    id: '1'
-                })
-                .then(([e]) => {
-                    userBalance.innerText = `${e} ETH`
-                })
-                .catch((e) => {
-                    console.log(e ,'err');
-                })
-                
-            }
-            getBalance()
-        }
-
-        function loginMetamaskBtn() {
-            if(!window.ethereum) {
-                loginBtn.innerText = 'MetaMask in not installed';
-                loginBtn.style.background = "#999999";
-                loginBtn.style.color = '#fff';
-                return false
-            }
-            if(getAcc === null){
-                loginBtn.addEventListener('click', loginWithMetaMask)
-            }
-        }
-
-        async function loginWithMetaMask() {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-            .catch((e) => {
-                console.error(e.message)
-                return
-            })
-            if(!accounts) { return }
-            localStorage.setItem('account', accounts)
-
-            window.userWalletAddress = accounts[0]
-            userWallet.innerText = window.userWalletAddress
-            loginBtn.innerText = 'Sign out of MetaMask';
-            fortmaticBtn.style.display = 'none';
-
-            loginBtn.removeEventListener('click', loginWithMetaMask)
-            setTimeout(() => {
-                loginBtn.addEventListener('click', signOutOfMetaMask)
-            }, 200)
-
-
-            const balance = await window.ethereum.request({
-                method: 'eth_getBalance',
-                params: [
-                   `${accounts[0]}`,
-                   'pending'
-                ],
-                id: '1'
-            })
-            .then(([e]) => {
-                userBalance.innerText = `${e} ETH`
-            })
-            .catch((e) => {
-                console.log(e ,'err');
-            })
-        }
-        
-        function signOutOfMetaMask() {
-            window.userWalletAddress = null;
-            userWallet.innerText = ''
-            userBalance.innerText = ''
-            loginBtn.innerText = 'Sign in with MetaMask';
-            fortmaticBtn.style.display = 'block';
-            localStorage.removeItem('account')
-            loginBtn.removeEventListener('click', signOutOfMetaMask)
-            setTimeout(() => {
-                loginBtn.addEventListener('click', loginWithMetaMask)
-            }, 200)
-        }
-
-// Fortmatic -------------------------------------------------
-        const apiKey = 'pk_test_F7F84FB9AF538E92'
-
-        
-
-        function loginFormaticBtn () {
-            fortmaticBtn.addEventListener('click', loginWithFortmatic)
-        }
-
-        async function loginWithFortmatic() {
-            const fm = new Fortmatic(apiKey);
-            window.web3 = new Web3(fm.getProvider());
-            web3.currentProvider.enable()
-            console.log(web3.currentProvider.enable());
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            loginMetamaskBtn()
-            loginFormaticBtn()
-        })
-        
-    </script>
- 
+    <script src="./script.js"></script>
 </body>
 </html>
 

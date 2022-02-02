@@ -24,12 +24,16 @@
     outline: none;
     background: #89bdff;
     border: none;
+    width: 250px;
     padding: 10px 20px;
     border-radius: 10px;
     font-weight: 500;
     font-size: 18px;
     cursor: pointer;
     margin-bottom: 15px;
+}
+.loginBtn:active{
+    background-color: #999;
 }
 .userWallet{
     margin-bottom: 15px;
