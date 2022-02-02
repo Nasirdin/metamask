@@ -9,12 +9,7 @@ const getAcc = localStorage.getItem('accountMetaMask')
 const getAccFort = localStorage.getItem('accountFortmatic')
 
 
-if(!window.ethereum) {
-    loginBtn.innerText = 'MetaMask in not installed';
-    loginBtn.style.background = "#999999";
-    loginBtn.style.color = '#fff';
-    return false
-}
+
 
 if(getAcc !== null) {
     function loginMetamaskBtn() {
@@ -53,6 +48,13 @@ async function loginWithMetaMask() {
     setTimeout(() => {
         loginBtn.addEventListener('click', signOutOfMetaMask)
     }, 200)
+
+    if(!window.ethereum) {
+        loginBtn.innerText = 'MetaMask in not installed';
+        loginBtn.style.background = "#999999";
+        loginBtn.style.color = '#fff';
+        return false
+    }
 }
 
 function signOutOfMetaMask() {
