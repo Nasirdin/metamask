@@ -1,0 +1,161 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1230px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.btn {
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 10px;
+  outline: none;
+  background-color: #4d9bff;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: .3s all;
+}
+
+.btn:hover {
+  color: #000;
+  background-color: #999;
+}
+
+.btn:active {
+  background-color: #666;
+}
+
+.userWallet {
+  display: none;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #999;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: 000;
+}
+
+.header {
+  padding: 10px 0;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo img {
+  width: 30px;
+}
+
+.header__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__btn {
+  margin-right: 20px;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.modal__block {
+  width: 320px;
+  height: 160px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 31px 0px rgba(34, 60, 80, 0.3);
+  background-color: #fff;
+  position: inherit;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__close {
+  width: 30px;
+  height: 2px;
+  background-color: #fff;
+  position: inherit;
+  right: -40px;
+  top: -20px;
+  transform: rotate(-45deg);
+  cursor: pointer;
+}
+
+.modal__close::after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: inherit;
+  background-color: #fff;
+  top: 10px;
+  transform: rotate(90deg);
+  top: 0;
+  left: 0;
+}
+
+.modal__btn {
+  width: 240px;
+  margin-bottom: 15px;
+}
+
+.modal__btn:last-child {
+  margin-bottom: 0;
+}
+
+.home {
+  padding: 100px 0;
+}
+
+.home .container {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home__form {
+  display: none;
+}
+
+.home__input {
+  margin-right: -10px;
+  width: 300px;
+  padding: 0px 20px 0px 10px;
+  outline: none;
+  background-color: #f0f0f0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 1px solid #4d9bff;
+}
+
+.home__btn {
+  display: flex;
+  align-items: center;
+}
+
+.home__btn img {
+  width: 20px;
+  margin-left: 10px;
+}

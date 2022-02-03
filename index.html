@@ -5,20 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metamask</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./src/css/style.css">
 </head>
 <body>
-    <div class="wrapper">
-        <div class="block">
-            <button id="loginBtn" onclick="" class="loginBtn">Login with MetaMask</button>
-            <button id="fortmaticBtn" onclick="" class="loginBtn">Login with Fortmatic</button>
-            <p id="userWallet" class="userWallet"></p>
-            <!-- <p id="userBalance" class="userBalance"></p> -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="header__logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png" alt="logotype"></a>
+            <div class="header__info">
+                <button id="connectWallet" class="header__btn btn">Connect Waller</button>
+                <p id="userWallet" class="userWallet"></p>
+            </div>
+        </div>
+    </header>
+    <section class="home">
+        <div class="container">
+            <div class="home__block">
+                <form id="formM" class="home__form">
+                    <input id="inputM" placeholder="Address" class="home__input" type="text" required>
+                    <button id="sendM" class="home__btn btn">Send <img src="https://cdn-icons-png.flaticon.com/512/1004/1004013.png" alt="send arrow"></button>
+                </form>
+                <form id="formF" class="home__form">
+                    <input id="inputF" placeholder="Address" class="home__input" type="text" required>
+                    <button id="sendF" onclick="" class="home__btn btn">Send <img src="https://cdn-icons-png.flaticon.com/512/1004/1004013.png" alt="send arrow"></button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div id="modal" class="modal">
+        <div class="modal__block">
+            <span id="close" class="modal__close"></span>
+            <button id="loginBtn" onclick="" class="modal__btn btn">Login with Metamask</button>
+            <button id="fortmaticBtn" onclick="" class="modal__btn btn">Login with Fortmatic</button>
         </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fortmatic@latest/dist/fortmatic.js"></script>
-    <script src="./script.js"></script>
+    <script src="./src/js/script.js"></script>
 </body>
 </html>
 
