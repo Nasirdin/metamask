@@ -54,6 +54,7 @@ if(getAcc !== null) {
         })
         loginBtn.removeEventListener('click', loginWithMetaMask)
         setTimeout(() => {
+            modal.style.display = 'none';
             loginBtn.addEventListener('click', signOutOfMetaMask)
         }, 100)
     
@@ -99,8 +100,8 @@ async function loginWithMetaMask() {
     })
     loginBtn.removeEventListener('click', loginWithMetaMask);
     setTimeout(() => {
-        loginBtn.addEventListener('click', signOutOfMetaMask);
         modal.style.display = 'none';
+        loginBtn.addEventListener('click', signOutOfMetaMask);
     }, 100)
 }
 
@@ -143,8 +144,8 @@ if(getAccFort !== null) {
     })
     fortmaticBtn.removeEventListener('click', loginWithFortmatic)
         setTimeout(() => {
-            fortmaticBtn.addEventListener('click', signOutOfFortmatic)
             modal.style.display = 'none';
+            fortmaticBtn.addEventListener('click', signOutOfFortmatic)
         }, 100)
 }
 
@@ -175,8 +176,8 @@ async function loginWithFortmatic() {
         })
         fortmaticBtn.removeEventListener('click', loginWithFortmatic);
         setTimeout(() => {
-            fortmaticBtn.addEventListener('click', signOutOfFortmatic);
             modal.style.display = 'none';
+            fortmaticBtn.addEventListener('click', signOutOfFortmatic);
         }, 100)
     })
 }
