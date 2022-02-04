@@ -20,6 +20,7 @@
     <section class="home">
         <div class="container">
             <div class="home__block">
+                <p class="home__balance" id="walletBalance">loading ...</p>
                 <form id="formM" class="home__form">
                     <input id="inputM" placeholder="Address" class="home__input" type="text" required>
                     <button id="sendM" class="home__btn btn">Send <img src="https://cdn-icons-png.flaticon.com/512/1004/1004013.png" alt="send arrow"></button>
@@ -37,6 +38,9 @@
             <button id="loginBtn" onclick="" class="modal__btn btn">Login with Metamask</button>
             <button id="fortmaticBtn" onclick="" class="modal__btn btn">Login with Fortmatic</button>
         </div>
+    </div>
+    <div id="modalInfo" class="modalInfo">
+        <p id="modalInfoText" class="modalInfo__text">rctybunimokp,l</p>
     </div>
     
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
