@@ -47,13 +47,6 @@ if(getAcc !== null) {
         setTimeout(() => {
             loginBtn.addEventListener('click', signOutOfMetaMask)
         }, 200)
-    
-        if(!window.ethereum) {
-            loginBtn.innerText = 'MetaMask in not installed';
-            loginBtn.style.background = "#999999";
-            loginBtn.style.color = '#fff';
-            return false
-        }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -65,6 +58,14 @@ if(getAcc === null){
     loginBtn.addEventListener('click', loginWithMetaMask)
 }
 async function loginWithMetaMask() {
+
+    if(!window.ethereum) {
+        loginBtn.innerText = 'MetaMask in not installed';
+        loginBtn.style.background = "#999999";
+        loginBtn.style.color = '#fff';
+        return false
+    }
+    
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     .catch((e) => {
         console.error(e.message)
