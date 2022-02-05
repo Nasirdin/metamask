@@ -150,6 +150,10 @@
   border: 1px solid #4d9bff;
 }
 
+.home__input:first-child {
+  width: 130px;
+}
+
 .home__btn {
   display: flex;
   align-items: center;

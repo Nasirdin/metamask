@@ -130,6 +130,9 @@
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
         border: 1px solid #4d9bff;
+        &:first-child{
+            width: 130px;
+        }
     }
     &__btn{
         display: flex;

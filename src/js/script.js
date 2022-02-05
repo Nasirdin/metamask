@@ -88,6 +88,7 @@ async function loginWithMetaMask() {
         loginBtn.addEventListener('click', signOutOfMetaMask);
         modal.style.display = 'none';
         localStorage.setItem('accountMetaMask', accounts)
+        location.reload()
     }, 200)
 }
 
@@ -155,6 +156,7 @@ async function loginWithFortmatic() {
             fortmaticBtn.addEventListener('click', signOutOfFortmatic);
             modal.style.display = 'none';
             localStorage.setItem('accountFortmatic', accounts[0]);
+            location.reload()
         }, 200)
     })
 }
@@ -182,22 +184,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Send MetaMask ----------------------------
 
+// const balanceM = document.getElementById('balanceM');
+// const balanceValue = balanceM.target.value;
+// console.log(balanceValue);
+
 async function sendTransitionMetaMask(e) {
     sendM.innerText = 'Initializing...';
     e.preventDefault();
-    const address = e.target.children[0].value;
+    const balanceM = e.target.children[0].value;
+    const balanceValue = (balanceM * 10 ** 18).toString(16);
+    const address = e.target.children[1].value;
     const toAddress = `${address}`;
-    console.log(getAcc);
     ethereum
         .request({
             method: 'eth_sendTransaction',
             params: [
                 {
-                    from: getAcc,
+                    from: `${getAcc}`,
                     to: `${toAddress}`,
-                    value: '0x29a2241af62c0000',
-                    gasPrice: '0x09184e72a000',
-                    gas: '0x2710',
+                    value: `${balanceValue}`,
                 },
             ],
         })
@@ -227,7 +232,9 @@ const modalInfoText = document.getElementById('moadlInfoText');
 async function sendTransitionFortmatic(e) {
     sendF.innerText = 'Initializing...';
     e.preventDefault();
-    const address = e.target.children[0].value;
+    const balanceF = e.target.children[0].value;
+    const balanceValue = (balanceF * 10 ** 18).toString(16);
+    const address = e.target.children[1].value;
     const toAddress = `${address}`;
     if(toAddress.length < 42) {
         modalInfo.style.top = '20px'
@@ -245,7 +252,8 @@ async function sendTransitionFortmatic(e) {
         console.log(accounts[0].length);
         const txnParams = {
             from: accounts[0],
-            to: toAddress,
+            to: `${toAddress}`,
+            value: `0x${balanceValue}`
         }
 
         web3.eth.sendTransaction(txnParams, (error) => {
