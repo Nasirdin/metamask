@@ -13,7 +13,9 @@ modalClose.addEventListener('click', () => {
 
 
 
-
+const apiKey = 'pk_test_F7F84FB9AF538E92'
+const fm = new Fortmatic(apiKey);
+window.web3 = new Web3(fm.getProvider());
 
 //  MetaMask ----------------------------
         
@@ -30,42 +32,21 @@ const inputM = document.getElementById('inputM');
 const inputF = document.getElementById('inputF');
 const getAcc = localStorage.getItem('accountMetaMask');
 const getAccFort = localStorage.getItem('accountFortmatic');
+const walletBalance = document.getElementById('walletBalance')
 
 if(getAcc !== null) {
-    function loginMetamaskBtn() {
-        window.userWalletAddress = getAcc;
-        const mSplit = window.userWalletAddress.split('');
-        const mNewAcc = `${mSplit[0] + mSplit[1] + mSplit[2] + mSplit[3] + mSplit[4] + mSplit[5] + mSplit[6]}...${mSplit[mSplit.length - 1]}`
-        userWallet.innerText = mNewAcc
-        userWallet.style.display = 'block';
-        loginBtn.innerText = 'Sign out of MetaMask';
-        fortmaticBtn.style.display = 'none';
-        connectWallet.innerText = 'Sign out';
-        connectWallet.style.marginRight = '20px'
-        formM.style.display = 'flex';
-        loginBtn.removeEventListener('click', loginWithMetaMask)
-        setTimeout(() => {
-            loginBtn.addEventListener('click', signOutOfMetaMask)
-        }, 200)
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        loginMetamaskBtn()
-    })
-}
-
-if(getAcc === null){
+    loginMetamaskBtn()
+} else if(getAcc === null) {
     loginBtn.addEventListener('click', loginWithMetaMask)
 }
-async function loginWithMetaMask() {
 
+async function loginWithMetaMask() {
     if(!window.ethereum) {
         loginBtn.innerText = 'MetaMask in not installed';
         loginBtn.style.background = "#999999";
         loginBtn.style.color = '#fff';
         return false
     }
-    
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     .catch((e) => {
         console.error(e.message)
@@ -74,23 +55,38 @@ async function loginWithMetaMask() {
     if(!accounts) { return }
 
     window.userWalletAddress = accounts[0]
+    console.log(window.userWalletAddress);
+    localStorage.setItem('accountMetaMask', accounts)
+    loginMetamaskBtn()
+}
+
+function loginMetamaskBtn() {
+    const getAccM = localStorage.getItem('accountMetaMask');
+    window.userWalletAddress = getAccM;
+    console.log(window.userWalletAddress);
     const mSplit = window.userWalletAddress.split('');
-    const mNewAcc = `${mSplit[0] + mSplit[1] + mSplit[2] + mSplit[3] + mSplit[4] + mSplit[5] + mSplit[6]}...${mSplit[mSplit.length - 1]}`
-    userWallet.innerText = mNewAcc;
+    const mNewAcc = `${mSplit.slice(0, 7)}...${mSplit[mSplit.length - 1]}`
+    const acc = mNewAcc.split(',').join('');
+    userWallet.innerText = acc
     userWallet.style.display = 'block';
     loginBtn.innerText = 'Sign out of MetaMask';
     fortmaticBtn.style.display = 'none';
     connectWallet.innerText = 'Sign out';
-    connectWallet.style.marginRight = '20px'
+    connectWallet.style.marginRight = '20px';
     formM.style.display = 'flex';
-    loginBtn.removeEventListener('click', loginWithMetaMask);
+    walletBalance.style.display = 'block';
+    loginBtn.removeEventListener('click', loginWithMetaMask)
     setTimeout(() => {
-        loginBtn.addEventListener('click', signOutOfMetaMask);
+        loginBtn.addEventListener('click', signOutOfMetaMask)
         modal.style.display = 'none';
-        localStorage.setItem('accountMetaMask', accounts)
-        location.reload()
+        web3.eth.getBalance(getAccM)
+        .then((e) => {
+            walletBalance.innerText = e
+        });
     }, 200)
-}
+} 
+
+
 
 function signOutOfMetaMask() {
     window.userWalletAddress = null;
@@ -100,36 +96,22 @@ function signOutOfMetaMask() {
     fortmaticBtn.style.display = 'block';
     connectWallet.innerText = 'Connect Wallet';
     formM.style.display = 'none';
+    connectWallet.style.marginRight = '0'
     loginBtn.removeEventListener('click', signOutOfMetaMask)
     localStorage.removeItem('accountMetaMask')
+    walletBalance.style.display = 'none';
+    walletBalance.style.display = 'loading...';
     setTimeout(() => {
         loginBtn.addEventListener('click', loginWithMetaMask)
     }, 100)
 }
 
 // Fortmatic -------------------------------------------------
-const apiKey = 'pk_test_F7F84FB9AF538E92'
-const fm = new Fortmatic(apiKey);
-window.web3 = new Web3(fm.getProvider());
-function loginFormaticBtn () {
-    fortmaticBtn.addEventListener('click', loginWithFortmatic)
-}
 
 if(getAccFort !== null) {
-    fortmaticBtn.style.display = 'block';
-    fortmaticBtn.innerText = 'Sign out of Fortmatic';
-    loginBtn.style.display = 'none';
-    connectWallet.innerText = 'Sign out'
-    connectWallet.style.marginRight = '20px'
-    const fSplit = getAccFort.split('');
-    const fNewAcc = `${fSplit[0] + fSplit[1] + fSplit[2] + fSplit[3] + fSplit[4] + fSplit[5] + fSplit[6]}...${fSplit[fSplit.length - 1]}`
-    userWallet.innerText = `${fNewAcc}`;
-    userWallet.style.display = 'block';
-    formF.style.display = 'flex';
-    fortmaticBtn.removeEventListener('click', loginWithFortmatic)
-    setTimeout(() => {
-        fortmaticBtn.addEventListener('click', signOutOfFortmatic)
-    }, 200)
+    loginFormaticBtn()
+} else if (getAccFort === null) {
+    fortmaticBtn.addEventListener('click', loginWithFortmatic)
 }
 
 async function loginWithFortmatic() {
@@ -141,24 +123,34 @@ async function loginWithFortmatic() {
 
     web3.eth.getAccounts((error, accounts) => {
         if(error) throw error;
-        fortmaticBtn.style.display = 'block';
-        fortmaticBtn.innerText = 'Sign out of Fortmatic';
-        loginBtn.style.display = 'none';
-        connectWallet.innerText = 'Sign out';
-        connectWallet.style.marginRight = '20px'
-        const fSplit = accounts[0].split('');
-        const fNewAcc = `${fSplit[0] + fSplit[1] + fSplit[2] + fSplit[3] + fSplit[4] + fSplit[5] + fSplit[6]}...${fSplit[fSplit.length - 1]}`
-        userWallet.innerText = `${fNewAcc}`;
-        userWallet.style.display = 'block'
-        formF.style.display = 'flex';
-        fortmaticBtn.removeEventListener('click', loginWithFortmatic);
-        setTimeout(() => {
-            fortmaticBtn.addEventListener('click', signOutOfFortmatic);
-            modal.style.display = 'none';
-            localStorage.setItem('accountFortmatic', accounts[0]);
-            location.reload()
-        }, 200)
+        localStorage.setItem('accountFortmatic', accounts[0]);
+        loginFormaticBtn()
     })
+}
+
+function loginFormaticBtn () {
+    const getAccFortF = localStorage.getItem('accountFortmatic');
+    fortmaticBtn.style.display = 'block';
+    fortmaticBtn.innerText = 'Sign out of Fortmatic';
+    loginBtn.style.display = 'none';
+    connectWallet.innerText = 'Sign out';
+    connectWallet.style.marginRight = '20px';
+    const fSplit = getAccFortF.split('');
+    const fNewAcc = `${fSplit.slice(0, 7)}...${fSplit[fSplit.length - 1]}`;
+    const acc = fNewAcc.split(',').join('');
+    userWallet.innerText = acc;
+    userWallet.style.display = 'block';
+    formF.style.display = 'flex';
+    walletBalance.style.display = 'block';
+    fortmaticBtn.removeEventListener('click', loginWithFortmatic)
+    setTimeout(() => {
+        fortmaticBtn.addEventListener('click', signOutOfFortmatic)
+        modal.style.display = 'none';
+        web3.eth.getBalance(getAccFortF)
+        .then((e) => {
+            walletBalance.innerText = e
+        });
+    }, 200)
 }
 
 function signOutOfFortmatic() {
@@ -169,24 +161,18 @@ function signOutOfFortmatic() {
     loginBtn.style.display = 'block';
     connectWallet.innerText = 'Connect Wallet';
     formF.style.display = 'none';
+    connectWallet.style.marginRight = '0';
     fortmaticBtn.removeEventListener('click', signOutOfFortmatic)
     localStorage.removeItem('accountFortmatic');
+    walletBalance.style.display = 'none';
+    walletBalance.style.display = 'loading...';
     setTimeout(() => {
         fortmaticBtn.addEventListener('click', loginWithFortmatic)
     }, 100)
 } 
 
-window.addEventListener('DOMContentLoaded', () => {
-    loginFormaticBtn()
-})
-
-
 
 // Send MetaMask ----------------------------
-
-// const balanceM = document.getElementById('balanceM');
-// const balanceValue = balanceM.target.value;
-// console.log(balanceValue);
 
 async function sendTransitionMetaMask(e) {
     sendM.innerText = 'Initializing...';
