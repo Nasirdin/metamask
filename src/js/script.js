@@ -100,7 +100,7 @@ function signOutOfMetaMask() {
     loginBtn.removeEventListener('click', signOutOfMetaMask)
     localStorage.removeItem('accountMetaMask')
     walletBalance.style.display = 'none';
-    walletBalance.style.display = 'loading...';
+    walletBalance.innerText = 'loading...';
     setTimeout(() => {
         loginBtn.addEventListener('click', loginWithMetaMask)
     }, 100)
@@ -165,7 +165,7 @@ function signOutOfFortmatic() {
     fortmaticBtn.removeEventListener('click', signOutOfFortmatic)
     localStorage.removeItem('accountFortmatic');
     walletBalance.style.display = 'none';
-    walletBalance.style.display = 'loading...';
+    walletBalance.innerText = 'loading...';
     setTimeout(() => {
         fortmaticBtn.addEventListener('click', loginWithFortmatic)
     }, 100)
