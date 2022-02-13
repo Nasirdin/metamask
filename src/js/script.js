@@ -32,7 +32,9 @@ const inputM = document.getElementById('inputM');
 const inputF = document.getElementById('inputF');
 const getAcc = localStorage.getItem('accountMetaMask');
 const getAccFort = localStorage.getItem('accountFortmatic');
-const walletBalance = document.getElementById('walletBalance')
+const walletBalance = document.getElementById('walletBalance');
+const network = document.getElementById('network');
+const formT = document.getElementById('formT');
 
 if(getAcc !== null) {
     loginMetamaskBtn()
@@ -74,6 +76,8 @@ function loginMetamaskBtn() {
     connectWallet.innerText = 'Sign out';
     connectWallet.style.marginRight = '20px';
     formM.style.display = 'flex';
+    formT.style.display = 'flex';
+
     walletBalance.style.display = 'block';
     loginBtn.removeEventListener('click', loginWithMetaMask)
     setTimeout(() => {
@@ -81,7 +85,11 @@ function loginMetamaskBtn() {
         modal.style.display = 'none';
         web3.eth.getBalance(getAccM)
         .then((e) => {
-            walletBalance.innerText = e
+            walletBalance.innerText = `${e / 10 ** 18} ETH`
+        });
+        web3.eth.net.getNetworkType()
+        .then((e) => {
+            network.innerText = e
         });
     }, 200)
 } 
@@ -96,6 +104,8 @@ function signOutOfMetaMask() {
     fortmaticBtn.style.display = 'block';
     connectWallet.innerText = 'Connect Wallet';
     formM.style.display = 'none';
+    formT.style.display = 'none';
+    network.innerText = '';
     connectWallet.style.marginRight = '0'
     loginBtn.removeEventListener('click', signOutOfMetaMask)
     localStorage.removeItem('accountMetaMask')
@@ -141,6 +151,7 @@ function loginFormaticBtn () {
     userWallet.innerText = acc;
     userWallet.style.display = 'block';
     formF.style.display = 'flex';
+    formT.style.display = 'flex';
     walletBalance.style.display = 'block';
     fortmaticBtn.removeEventListener('click', loginWithFortmatic)
     setTimeout(() => {
@@ -148,7 +159,11 @@ function loginFormaticBtn () {
         modal.style.display = 'none';
         web3.eth.getBalance(getAccFortF)
         .then((e) => {
-            walletBalance.innerText = e
+            walletBalance.innerText = `${e / 10 ** 18} ETH`
+        });
+        web3.eth.net.getNetworkType()
+        .then((e) => {
+            network.innerText = e
         });
     }, 200)
 }
@@ -161,6 +176,8 @@ function signOutOfFortmatic() {
     loginBtn.style.display = 'block';
     connectWallet.innerText = 'Connect Wallet';
     formF.style.display = 'none';
+    formT.style.display = 'none';
+    network.innerText = '';
     connectWallet.style.marginRight = '0';
     fortmaticBtn.removeEventListener('click', signOutOfFortmatic)
     localStorage.removeItem('accountFortmatic');
@@ -260,4 +277,157 @@ async function sendTransitionFortmatic(e) {
     }, 200)
 }
 
-formF.addEventListener('submit', sendTransitionFortmatic)
+formF.addEventListener('click', sendTransitionFortmatic)
+
+
+const abi = [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "name",
+      "outputs": [{ "name": "", "type": "string" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        { "name": "_spender", "type": "address" },
+        { "name": "_value", "type": "uint256" }
+      ],
+      "name": "approve",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        { "name": "_from", "type": "address" },
+        { "name": "_to", "type": "address" },
+        { "name": "_value", "type": "uint256" }
+      ],
+      "name": "transferFrom",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "decimals",
+      "outputs": [{ "name": "", "type": "uint8" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [{ "name": "_owner", "type": "address" }],
+      "name": "balanceOf",
+      "outputs": [{ "name": "balance", "type": "uint256" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [{ "name": "", "type": "string" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        { "name": "_to", "type": "address" },
+        { "name": "_value", "type": "uint256" }
+      ],
+      "name": "transfer",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        { "name": "_owner", "type": "address" },
+        { "name": "_spender", "type": "address" }
+      ],
+      "name": "allowance",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    { "payable": true, "stateMutability": "payable", "type": "fallback" },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "owner", "type": "address" },
+        { "indexed": true, "name": "spender", "type": "address" },
+        { "indexed": false, "name": "value", "type": "uint256" }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "name": "from", "type": "address" },
+        { "indexed": true, "name": "to", "type": "address" },
+        { "indexed": false, "name": "value", "type": "uint256" }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    }
+]
+
+
+
+
+
+
+
+// fortmatic -----------------------------
+formT.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const amount = (e.target.children[1].value);
+    const tokenAddress = e.target.children[2].value;
+    const to = e.target.children[3].value;
+    const acc = () => {
+        if(getAcc !== null){
+            return getAcc
+        } else if(getAccFort !== null) {
+            return getAccFort
+        }
+    }
+    const from = acc()
+    sendToken(from, to, amount, tokenAddress)
+})
+
+
+const sendToken = async (from, to, amount, tokenAddress) => {
+    const contract = new web3.eth.Contract(abi, tokenAddress);
+    const decimals = await contract.methods.decimals(). call();
+    const unitAmount = amount * 10 **decimals
+    return await contract.methods.transfer(to, unitAmount).send({
+        from
+    })
+   
+}

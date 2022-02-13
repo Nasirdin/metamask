@@ -38,7 +38,7 @@
   background-color: #999;
   padding: 10px 15px;
   border-radius: 10px;
-  color: 000;
+  color: #000;
 }
 
 .header {
@@ -63,6 +63,17 @@
 
 .header__btn {
   margin-right: 0;
+}
+
+.header__network {
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #f0f0f0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: 000;
+  margin-right: 20px;
+  color: green;
 }
 
 .modal {
@@ -137,6 +148,7 @@
 
 .home__form {
   display: none;
+  margin-bottom: 20px;
 }
 
 .home__input {
@@ -169,6 +181,25 @@
   font-weight: 500;
   margin-bottom: 20px;
   display: none;
+}
+
+.home__title {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.home__token-form {
+  display: none;
+  flex-direction: column;
+}
+
+.home__inputT {
+  border: 1px solid #4d9bff;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  outline: none;
+  padding: 10px 20px;
+  margin-bottom: 10px;
 }
 
 .modalInfo {

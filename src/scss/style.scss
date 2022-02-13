@@ -33,7 +33,7 @@
     background-color: #999;
     padding: 10px 15px;
     border-radius: 10px;
-    color: 000;
+    color: #000;
 }
 .header{
     padding: 10px 0;
@@ -54,6 +54,16 @@
     }
     &__btn{
         margin-right: 0;
+    }
+    &__network{
+        font-size: 18px;
+        font-weight: 500;
+        background-color: #f0f0f0;
+        padding: 10px 15px;
+        border-radius: 10px;
+        color: 000;
+        margin-right: 20px;
+        color: green;
     }
 }
 .modal{
@@ -120,6 +130,7 @@
     }
     &__form{
         display: none;
+        margin-bottom: 20px;
     }
     &__input{
         margin-right: -10px;
@@ -148,6 +159,22 @@
         margin-bottom: 20px;
         display: none;
     }
+    &__title{
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+    &__token-form{
+        display: none;
+        flex-direction: column;
+    }
+    &__inputT{
+        border: 1px solid #4d9bff;
+        border-radius: 10px;
+        background-color: #f0f0f0;
+        outline: none;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+    }
 }
 
 .modalInfo{
@@ -167,3 +194,4 @@
     color: red;
     transition: .5s all;
 }
+
