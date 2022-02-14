@@ -77,7 +77,7 @@ function loginMetamaskBtn() {
     connectWallet.style.marginRight = '20px';
     formM.style.display = 'flex';
     formT.style.display = 'flex';
-
+    network.style.display = 'block';
     walletBalance.style.display = 'block';
     loginBtn.removeEventListener('click', loginWithMetaMask)
     setTimeout(() => {
@@ -105,6 +105,7 @@ function signOutOfMetaMask() {
     connectWallet.innerText = 'Connect Wallet';
     formM.style.display = 'none';
     formT.style.display = 'none';
+    network.style.display = 'none';
     network.innerText = '';
     connectWallet.style.marginRight = '0'
     loginBtn.removeEventListener('click', signOutOfMetaMask)
@@ -152,6 +153,7 @@ function loginFormaticBtn () {
     userWallet.style.display = 'block';
     formF.style.display = 'flex';
     formT.style.display = 'flex';
+    network.style.display = 'block';
     walletBalance.style.display = 'block';
     fortmaticBtn.removeEventListener('click', loginWithFortmatic)
     setTimeout(() => {
@@ -177,6 +179,7 @@ function signOutOfFortmatic() {
     connectWallet.innerText = 'Connect Wallet';
     formF.style.display = 'none';
     formT.style.display = 'none';
+    network.style.display = 'none';
     network.innerText = '';
     connectWallet.style.marginRight = '0';
     fortmaticBtn.removeEventListener('click', signOutOfFortmatic)
