@@ -418,7 +418,25 @@ formT.addEventListener('submit', async (e) => {
         }
     }
     const from = acc()
-    sendToken(from, to, amount, tokenAddress)
+    
+    if(getAcc !== null){
+        const transactionParameters = {
+            nonce: '0x00',
+            to: to,
+            from: from,
+            value: `${(amount * 10 ** 18).toString(16)}`,
+            data: tokenAddress,
+            chainId: '0x3',
+          };
+          
+          const txHash = await ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters],
+          });
+      txHash()
+    } else if(getAccFort !== null){
+        sendToken(from, to, amount, tokenAddress)
+    }
 })
 
 
@@ -429,5 +447,4 @@ const sendToken = async (from, to, amount, tokenAddress) => {
     return await contract.methods.transfer(to, unitAmount).send({
         from
     })
-   
 }
